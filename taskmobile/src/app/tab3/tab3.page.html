@@ -1,17 +1,60 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+
+    <ion-title *ngIf="isEdit; else createTaskTitle">Edit Task</ion-title>
+    <ng-template #createTaskTitle>
+      <h1 class="m-4">Add Task</h1>
+    </ng-template>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <form [formGroup]="taskForm">
+    <!-- Title -->
+    <ion-item>
+      <ion-input label="Title" labelPlacement="floating" formControlName="title"></ion-input>
+    </ion-item>
+
+    <!-- Description -->
+    <ion-item>
+      <ion-textarea label="Description" labelPlacement="floating" formControlName="description"></ion-textarea>
+    </ion-item>
+
+    <!-- Category -->
+    <ion-item>
+      <ion-input label="category" labelPlacement="floating" formControlName="category"></ion-input>
+    </ion-item>
+    
+    <!-- Task Date -->
+
+    <ion-item>
+      <ion-input label="Task Date" type="datetime-local" labelPlacement="floating" formControlName="task_date" [value]="task_date.value | date: 'yyyy-MM-ddTHH:mm'" ></ion-input>
+    </ion-item>
+
+    <!-- Priority Level -->
+    <ion-item>
+      <ion-select label="Priority Level" placeholder="Select a priority level" formControlName="priority_level">
+        <ion-select-option value="low">Low</ion-select-option>
+        <ion-select-option value="medium">Medium</ion-select-option>
+        <ion-select-option value="high">High</ion-select-option>
+        <ion-select-option value="critical">Critical</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Progress Level -->
+ 
+    <ion-item>
+      <ion-select label="Progress Level" placeholder="Select a progress level" formControlName="progress_level">
+        <ion-select-option value="pending">Pending</ion-select-option>
+        <ion-select-option value="started">Started</ion-select-option>
+        <ion-select-option value="completed">Completed</ion-select-option>
+      </ion-select>
+    </ion-item><br>
+    
+ 
+    <ion-button type="button" [disabled]="taskForm.invalid" (click)="onSubmit()">Submit</ion-button>
+  </form>
+
 </ion-content>
