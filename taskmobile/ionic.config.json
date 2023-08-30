@@ -1,0 +1,7 @@
+{
+  "name": "taskmobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
